@@ -6,6 +6,6 @@ from phishing_detector.model import train_and_save
 
 parser = argparse.ArgumentParser()
 parser.add_argument("dataset")
-parser.add_argument("--artifacts", default="artifacts")
+parser.add_argument("--artifacts", default="models")
 args = parser.parse_args()
 print(json.dumps(train_and_save(args.dataset, args.artifacts), indent=2))

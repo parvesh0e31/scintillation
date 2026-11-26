@@ -5,7 +5,7 @@ from pathlib import Path
 import os
 
 app = FastAPI(title="URL Phishing Detector", version="1.0")
-MODEL_PATH = os.getenv("PHISHING_MODEL", "models/best_model.pkl")
+MODEL_PATH = os.getenv("PHISHING_MODEL", "models/model.joblib")
 _model = None
 
 class URLRequest(BaseModel):

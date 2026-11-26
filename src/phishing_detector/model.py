@@ -70,7 +70,7 @@ def train_and_save(csv_path: str, artifact_dir: str, test_size=0.2) -> dict:
                 "metrics": metrics,
                 "train_rows": len(train),
                 "test_rows": len(test),
-                "artifacts": ["best_model.pkl", "scaler.pkl", "metadata.json"],
+                "artifacts": ["model.joblib", "best_model.pkl", "scaler.pkl", "metadata.json"],
             },
             indent=2,
         )
