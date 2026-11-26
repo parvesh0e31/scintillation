@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+*.egg-info/
 
 # Generated training artifacts
 models/*.pkl
@@ -13,6 +14,7 @@ models/*.json
 # Local datasets
 data/*.csv
 data/*.json
+!data/phishing_dataset_v1.csv
 
 # Editor and OS files
 .DS_Store

@@ -10,28 +10,15 @@ It is a research baseline, not a security verdict.
 Input is CSV with the required header `url,label`. `url` must be an absolute
 `http://` or `https://` URL without credentials and at most 2048 characters.
 `label` is `0`/`1`, or `legitimate`/`phishing` (also `benign`). Extra columns
-are ignored. No dataset or model binary is included. To canonicalize a
-user-supplied dataset:
+are ignored. A small, synthetic `data/phishing_dataset_v1.csv` is included only to
+smoke-test the training and demo workflow; its labels are not real and its
+metrics do not indicate detection quality. Replace it with a representative,
+independently labeled dataset before drawing any conclusions. To canonicalize
+a user-supplied dataset:
 
 ```bash
 python utils/build_features.py raw.csv data/phishing_dataset_v1.csv
 ```
-
-For a quick demonstration, prepare a small, **manually labeled** CSV with
-multiple unrelated domains in both classes (the project does not generate
-sample labels or download a dataset):
-
-```csv
-url,label
-https://your-labeled-benign-domain.example/,legitimate
-https://another-labeled-benign-domain.example/,legitimate
-https://your-labeled-phishing-domain.example/login,phishing
-https://another-labeled-phishing-domain.example/verify,phishing
-```
-
-Use a sufficiently large, representative dataset for meaningful evaluation;
-four rows only illustrate the expected format and may not produce a valid
-grouped train/test split.
 
 ## Quick start
 
@@ -44,13 +31,18 @@ python -m pip install -r requirements.txt
 python -m pip install -e .
 ```
 
-Prepare a labeled CSV as described above, then train, evaluate, and classify:
+The included toy dataset lets you try the workflow immediately. Train,
+evaluate, and classify:
 
 ```bash
 python src/train_model.py data/phishing_dataset_v1.csv --artifacts models
 python src/evaluate.py data/phishing_dataset_v1.csv --model models/model.joblib
 python src/predict.py https://example.com/login --model models/model.joblib
 ```
+
+For real evaluation, replace the toy CSV with a sufficiently large,
+representative, independently labeled dataset. The included labels are
+fictional and must not be used to judge phishing detection quality.
 
 Training uses a grouped holdout split by registrable-domain approximation so
 related subdomains cannot leak between train and test. Artifacts are

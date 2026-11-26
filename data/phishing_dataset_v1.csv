@@ -1,0 +1,9 @@
+url,label
+https://shop-a.example/products,legitimate
+https://news-b.example/article,legitimate
+https://library-c.example/home,legitimate
+https://weather-d.example/today,legitimate
+https://account-a.example/login,phishing
+https://verify-b.example/secure,phishing
+https://billing-c.example/update,phishing
+https://signin-d.example/confirm,phishing
