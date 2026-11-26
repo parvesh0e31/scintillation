@@ -18,14 +18,23 @@ def load_dataset(path: str) -> pd.DataFrame:
         raise ValueError(f"CSV missing required columns: {', '.join(sorted(missing))}")
     frame = frame[["url", "label"]].dropna().copy()
     frame["url"] = frame["url"].map(validate_url)
+
     def normalize(label):
         if isinstance(label, str):
             text = label.strip().lower()
-            if text in {"phishing", "1", "true", "yes"}: return 1
-            if text in {"legitimate", "benign", "0", "false", "no"}: return 0
-        if label in (0, 1): return int(label)
+            if text in {"phishing", "1", "true", "yes"}:
+                return 1
+            if text in {"legitimate", "benign", "0", "false", "no"}:
+                return 0
+        if label in (0, 1):
+            return int(label)
         raise ValueError("label must be 0/1 or legitimate/phishing")
+
     frame["label"] = frame["label"].map(normalize).astype("int8")
+    conflicting_labels = frame.groupby("url")["label"].nunique()
+    if (conflicting_labels > 1).any():
+        raise ValueError("duplicate URLs have conflicting labels")
+    frame = frame.drop_duplicates(subset=["url"]).reset_index(drop=True)
     if frame.empty or frame["label"].nunique() < 2:
         raise ValueError("dataset must contain both label classes")
-    return frame.drop_duplicates(subset=["url"]).reset_index(drop=True)
+    return frame

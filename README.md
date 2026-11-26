@@ -57,10 +57,14 @@ starts Streamlit. Open the local URL printed in the terminal (usually
 `http://localhost:8501`). Stop the app with `Ctrl+C`.
 
 Training uses a grouped holdout split by registrable-domain approximation so
-related subdomains cannot leak between train and test. Artifacts are
+related subdomains cannot leak between train and test. It requires both
+classes in train and test; if there are too few distinct domains, training
+stops with an actionable error instead of falling back to a leaky split.
+Artifacts are
 `model.joblib` (the complete scaler-plus-classifier pipeline), `best_model.pkl`
 (a compatibility alias), `scaler.pkl`, and human-readable `metadata.json`.
-They are generated locally and intentionally not committed.
+The metadata records the scikit-learn version used to train the model. The
+artifacts are generated locally and intentionally not committed.
 
 ## API and UI
 
