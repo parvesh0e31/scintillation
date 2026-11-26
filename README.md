@@ -44,6 +44,18 @@ For real evaluation, replace the toy CSV with a sufficiently large,
 representative, independently labeled dataset. The included labels are
 fictional and must not be used to judge phishing detection quality.
 
+### One-command demo
+
+After installing dependencies and activating `.venv`, run:
+
+```bash
+python run.py
+```
+
+The launcher trains a model from the bundled toy CSV if no model exists, then
+starts Streamlit. Open the local URL printed in the terminal (usually
+`http://localhost:8501`). Stop the app with `Ctrl+C`.
+
 Training uses a grouped holdout split by registrable-domain approximation so
 related subdomains cannot leak between train and test. Artifacts are
 `model.joblib` (the complete scaler-plus-classifier pipeline), `best_model.pkl`
