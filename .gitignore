@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Generated training artifacts
+models/*.pkl
+models/*.joblib
+models/*.json
+
+# Local datasets
+data/*.csv
+data/*.json
+
+# Editor and OS files
+.DS_Store
+.idea/
+.vscode/
